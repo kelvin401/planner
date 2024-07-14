@@ -22,7 +22,7 @@ export function Activities() {
     api
       .get(`/trips/${tripId}/activities`)
       .then((response) => setActivities(response.data.activities));
-  }, [tripId, activities]);
+  }, [tripId]);
 
   return (
     <div className="space-y-8">
