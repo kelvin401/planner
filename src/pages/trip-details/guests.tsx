@@ -8,17 +8,31 @@ interface Participant {
   id: string;
   name: string | null;
   email: string;
-  is_confirmed: boolean;
+  is_confirmed: boolean | null;
 }
+
+async function confirmParticipant(participantId: string) {
+  await api.get(`/participants/${participantId}/confirm`);
+}
+
 export function Guests() {
   const { tripId } = useParams();
   const [participants, setParticipants] = useState<Participant[]>([]);
 
   useEffect(() => {
-    api
-      .get(`/trips/${tripId}/participants`)
-      .then((response) => setParticipants(response.data.participants));
+    const fetchParticipants = async () => {
+      const response = await api.get(`/trips/${tripId}/participants`);
+      setParticipants(response.data.participants);
+    };
+    fetchParticipants();
   }, [tripId]);
+
+  const handleConfirmParticipant = async (participantId: string) => {
+    await confirmParticipant(participantId);
+
+    const response = await api.get(`/trips/${tripId}/participants`);
+    setParticipants(response.data.participants);
+  };
 
   return (
     <div className="space-y-6">
@@ -39,9 +53,15 @@ export function Guests() {
               </span>
             </div>
             {participant.is_confirmed ? (
-              <CheckCircle2 className="size-5 shrink-0 text-green-400" />
+              <CheckCircle2
+                onClick={() => handleConfirmParticipant(participant.id)}
+                className="size-5 shrink-0 text-green-400 hover:cursor-pointer"
+              />
             ) : (
-              <CircleDashed className="size-5 shrink-0 text-zinc-400" />
+              <CircleDashed
+                onClick={() => handleConfirmParticipant(participant.id)}
+                className="size-5 shrink-0 text-zinc-400 hover:cursor-pointer"
+              />
             )}
           </div>
         ))}
