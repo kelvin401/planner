@@ -36,8 +36,10 @@ export function ImportantLinks() {
       <h2 className="text-xl font-semibold">Links importantes</h2>
 
       <div className="space-y-5">
-        {links?.map((link) => {
-          return (
+        {links?.length === 0 ? (
+          <p className="text-zinc-400">Nenhum link criado.</p>
+        ) : (
+          links?.map((link) => (
             <div
               key={link.id}
               className="flex items-center justify-between gap-4"
@@ -56,8 +58,8 @@ export function ImportantLinks() {
               </div>
               <Link2 className="size-5 shrink-0 text-zinc-400" />
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
 
       <Button onClick={openCreateLinkModal} size="full" variant="secondary">
