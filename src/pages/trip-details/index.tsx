@@ -19,7 +19,7 @@ export function TripDetailsPage() {
 
   return (
     <div className="mx-auto max-w-6xl flex-1 space-y-8 px-6 py-10">
-      <div className="space-y-4 text-zinc-50">
+      <div className="space-y-4 text-zinc-300">
         <a href="/" className="flex items-center gap-2">
           <ArrowLeft className="size-5" />
           Voltar para Home
