@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import { useState } from "react";
 import { CreateActivityModal } from "./create-activity-modal";
 import { ImportantLinks } from "./important-links";
@@ -18,9 +18,14 @@ export function TripDetailsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
-      <DestinationAndDateHeader />
-
+    <div className="mx-auto max-w-6xl flex-1 space-y-8 px-6 py-10">
+      <div className="space-y-4 text-zinc-300">
+        <a href="/" className="flex items-center gap-2">
+          <ArrowLeft className="size-5" />
+          Voltar para Home
+        </a>
+        <DestinationAndDateHeader />
+      </div>
       <main className="flex gap-16 px-4">
         <div className="flex-1 space-y-6">
           <div className="flex items-center justify-between">
@@ -45,7 +50,6 @@ export function TripDetailsPage() {
           <Guests />
         </div>
       </main>
-
       {isCreateActivityModalOpen && (
         <CreateActivityModal
           closeCreateActivityModal={closeCreateActivityModal}
